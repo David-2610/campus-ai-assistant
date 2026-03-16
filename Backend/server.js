@@ -5,6 +5,11 @@ const connectDB = require("./config/db");
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+
+
+
 
 const app = express();
 
@@ -16,7 +21,10 @@ app.use(cors());
 app.use(express.json());
 
 // API Routes
+
+app.use("/api/admin", adminRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
