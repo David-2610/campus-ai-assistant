@@ -1,0 +1,93 @@
+{
+  "info": {
+    "name": "Campus AI Assistant - New APIs",
+    "_postman_id": "new-apis-collection",
+    "description": "Public + Extended Admin APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "BASE_URL", "value": "http://localhost:5000" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+
+    {
+      "name": "PUBLIC RESOURCES",
+      "item": [
+        {
+          "name": "Get Public Resources (All)",
+          "request": {
+            "method": "GET",
+            "url": "{{BASE_URL}}/api/resources"
+          }
+        },
+        {
+          "name": "Get Resources with Filters",
+          "request": {
+            "method": "GET",
+            "url": "{{BASE_URL}}/api/resources?type=PYQ&branch=CSE&semester=3&page=1&limit=10"
+          }
+        },
+        {
+          "name": "Search Resources",
+          "request": {
+            "method": "GET",
+            "url": "{{BASE_URL}}/api/resources?search=tree"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "ADMIN RESOURCE MANAGEMENT",
+      "item": [
+
+        {
+          "name": "Get All Resources",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{BASE_URL}}/api/admin/resources"
+          }
+        },
+
+        {
+          "name": "Get Approved Resources",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{BASE_URL}}/api/admin/resources/approved"
+          }
+        },
+
+        {
+          "name": "Get Rejected Resources",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{BASE_URL}}/api/admin/resources/rejected"
+          }
+        },
+
+        {
+          "name": "Delete Resource",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{BASE_URL}}/api/admin/resources/:id"
+          }
+        }
+
+      ]
+    }
+
+  ]
+}
