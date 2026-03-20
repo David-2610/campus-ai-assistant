@@ -1,14 +1,16 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { getToken, isAdmin } from "@/utils/auth";
-import { useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 const AdminRoute = () => {
-  const token = getToken();
+  const { isAuthenticated, user } = useAuth();
 
-  
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
 
-  if (!token) return <Navigate to="/login" />;
-  if (!isAdmin()) return <Navigate to="/" />;
+  if (user?.role !== 'admin') {
+    return <Navigate to="/" />;
+  }
 
   return <Outlet />;
 };
