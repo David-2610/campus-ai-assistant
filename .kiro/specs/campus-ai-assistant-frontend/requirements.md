@@ -59,7 +59,7 @@ The Campus AI Assistant Frontend is a React-based web application that provides 
 
 #### Acceptance Criteria
 
-1. THE API_Client SHALL use baseURL "http://localhost:5000/api"
+1. THE API_Client SHALL use baseURL from environment variable VITE_API_BASE_URL
 2. THE API_Client SHALL implement a request interceptor
 3. WHEN an API request is made, THE API_Client SHALL automatically attach the Authorization header with Bearer token format
 4. WHEN no token exists in localStorage, THE API_Client SHALL send requests without Authorization header

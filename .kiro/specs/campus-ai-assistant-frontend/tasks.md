@@ -14,6 +14,7 @@ Each task builds incrementally on previous work, ensuring no orphaned code. Test
     - Configure Vite with @ alias pointing to /src directory in vite.config.js
     - Configure Tailwind CSS in tailwind.config.js
     - Update index.css with Tailwind directives
+    - Create .env file with VITE_API_BASE_URL environment variable
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_
 
 - [x] 2. Authentication utilities and constants
@@ -35,7 +36,8 @@ Each task builds incrementally on previous work, ensuring no orphaned code. Test
 
 - [-] 3. API client configuration
   - [x] 3.1 Create and configure Axios instance
-    - Create api.js with Axios instance using baseURL "http://localhost:5000/api"
+    - Create api.js with Axios instance using baseURL from import.meta.env.VITE_API_BASE_URL
+    - Create .env file with VITE_API_BASE_URL=http://localhost:5000/api
     - Implement request interceptor to attach Authorization header with Bearer token
     - Implement response interceptor to handle 401 errors and redirect to login
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 16.4_

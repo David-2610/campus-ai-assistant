@@ -58,7 +58,7 @@ The frontend communicates with a RESTful backend API using Axios, with JWT-based
                            │
 ┌──────────────────────────▼──────────────────────────────────┐
 │                    Backend API Server                        │
-│                  (http://localhost:5000/api)                 │
+│              (VITE_API_BASE_URL from .env)                   │
 │                                                              │
 │  Endpoints:                                                  │
 │  - POST   /auth/register                                     │
@@ -821,8 +821,25 @@ export const YEARS = [2020, 2021, 2022, 2023, 2024, 2025];
 
 ### Error Handling Implementation
 
-**API Client Error Interceptor**:
+**API Client Configuration**:
 ```javascript
+// api.js
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL
+});
+
+// Request interceptor
+api.interceptors.request.use((config) => {
+  const token = getToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// Response interceptor
 api.interceptors.response.use(
   (response) => response,
   (error) => {
