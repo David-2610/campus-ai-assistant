@@ -11,21 +11,30 @@ const s3 = new S3Client({
 });
 
 const uploadToR2 = async (file) => {
-  const fileStream = fs.createReadStream(file.path);
+  try {
+    const fileStream = fs.createReadStream(file.path);
 
-  const key = Date.now() + "-" + file.originalname;
+    // ✅ Clean + structured key
+    const cleanName = file.originalname.replace(/\s+/g, "-");
+    const key = `campus-ai-assistant/${Date.now()}-${cleanName}`;
 
-  const params = {
-    Bucket: process.env.R2_BUCKET_NAME,
-    Key: key,
-    Body: fileStream,
-    ContentType: file.mimetype
-  };
+    const params = {
+      Bucket: process.env.R2_BUCKET_NAME,
+      Key: key,
+      Body: fileStream,
+      ContentType: file.mimetype
+    };
 
-  await s3.send(new PutObjectCommand(params));
+    await s3.send(new PutObjectCommand(params));
 
-  // ✅ Public file URL
-  return `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com/${process.env.R2_BUCKET_NAME}/${key}`;
+    // ✅ PUBLIC URL (FIXED)
+    const fileUrl = `${process.env.R2_PUBLIC_URL}/${key}`;
+
+    return fileUrl;
+  } catch (error) {
+    console.error("R2 Upload Error:", error);
+    throw error;
+  }
 };
 
 module.exports = uploadToR2;
