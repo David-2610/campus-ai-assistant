@@ -7,16 +7,16 @@ const s3 = new S3Client({
   credentials: {
     accessKeyId: process.env.R2_ACCESS_KEY,
     secretAccessKey: process.env.R2_SECRET_KEY
-  }
+  },
+  forcePathStyle: true // ✅ ADD THIS
 });
 
 const uploadToR2 = async (file) => {
   try {
-    const fileStream = fs.createReadStream(file.path);
+    console.log("📂 File received:", file);
 
-    // ✅ Clean + structured key
-    const cleanName = file.originalname.replace(/\s+/g, "-");
-    const key = `campus-ai-assistant/${Date.now()}-${cleanName}`;
+    const fileStream = fs.createReadStream(file.path);
+    const key = Date.now() + "-" + file.originalname;
 
     const params = {
       Bucket: process.env.R2_BUCKET_NAME,
@@ -25,14 +25,19 @@ const uploadToR2 = async (file) => {
       ContentType: file.mimetype
     };
 
-    await s3.send(new PutObjectCommand(params));
+    console.log("🚀 Uploading to R2 with params:", params);
 
-    // ✅ PUBLIC URL (FIXED)
+    const result = await s3.send(new PutObjectCommand(params));
+
+    console.log("✅ R2 Upload Success:", result);
+
     const fileUrl = `${process.env.R2_PUBLIC_URL}/${key}`;
+    console.log("🌐 File URL:", fileUrl);
 
     return fileUrl;
+
   } catch (error) {
-    console.error("R2 Upload Error:", error);
+    console.error("❌ R2 Upload Failed:", error);
     throw error;
   }
 };

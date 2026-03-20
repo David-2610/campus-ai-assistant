@@ -4,6 +4,9 @@ const uploadToR2 = require("../services/r2UploadService");
 // Upload Resource
 exports.uploadResource = async (req, res) => {
     try {
+        console.log("📥 Incoming request body:", req.body);
+        console.log("📥 Incoming file:", req.file);
+
         const {
             title,
             type,
@@ -17,11 +20,21 @@ exports.uploadResource = async (req, res) => {
         const file = req.file;
 
         if (!file) {
+            console.log("❌ No file uploaded");
             return res.status(400).json({ message: "No file uploaded" });
         }
 
         // ✅ Upload to R2
-        const fileUrl = await uploadToR2(file);
+        let fileUrl;
+        try {
+            fileUrl = await uploadToR2(file);
+        } catch (err) {
+            console.error("❌ Upload failed, stopping process");
+            return res.status(500).json({
+                message: "File upload failed",
+                error: err.message
+            });
+        }
 
         const clean = (value) => value?.trim();
 
@@ -38,17 +51,22 @@ exports.uploadResource = async (req, res) => {
             status: "pending"
         });
 
-        res.status(201).json({
+        console.log("✅ Resource saved:", resource);
+
+        return res.status(201).json({
             message: "Resource uploaded successfully (Pending approval)",
             resource
         });
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            message: "Server error",
-            error: error.message
-        });
+        console.error("🔥 Controller Error:", error);
+
+        if (!res.headersSent) {
+            return res.status(500).json({
+                message: "Server error",
+                error: error.message
+            });
+        }
     }
 };
 
