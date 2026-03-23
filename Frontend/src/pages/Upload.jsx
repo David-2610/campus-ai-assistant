@@ -303,7 +303,7 @@ const Upload = () => {
                 </label>
                 <p className="pl-1">or drag and drop</p>
               </div>
-              <p className="text-xs text-brand-dark/50">PDF, DOC, DOCX up to 10MB</p>
+              <p className="text-xs text-brand-dark/50">PDF, DOC, DOCX, PPTX, JPG, PNG</p>
             </div>
           </div>
           {formErrors.file && <p className="mt-1 text-sm text-red-600">{formErrors.file}</p>}

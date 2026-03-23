@@ -1,17 +1,18 @@
 const multer = require("multer");
+const os = require("os");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    // Vercel serverless apps throw 500 when writing to 'uploads/'. Must use /tmp via OS temp dir.
+    cb(null, os.tmpdir());
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, Date.now() + "-" + file.originalname.replace(/[^a-zA-Z0-9.]/g, ""));
   }
 });
 
 const upload = multer({
-  storage,
-  limits: { fileSize: 100 * 1024 * 1024 } // 100MB
+  storage
 });
 
 module.exports = upload;
