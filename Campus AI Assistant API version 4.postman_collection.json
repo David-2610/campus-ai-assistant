@@ -1,0 +1,262 @@
+{
+  "info": {
+    "name": "Campus AI Assistant API version 4",
+    "_postman_id": "version-4-collection",
+    "description": "Comprehensive API collection including enhanced Notification features with image uploads, Resources, Admin, Auth, and Metadata.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "BASE_URL", "value": "http://localhost:5000" },
+    { "key": "token", "value": "YOUR_JWT_TOKEN" }
+  ],
+  "item": [
+    {
+      "name": "AUTH",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": "{{BASE_URL}}/api/auth/register",
+            "description": "Register a new user."
+          }
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": "{{BASE_URL}}/api/auth/login",
+            "description": "Login and receive JWT token."
+          }
+        }
+      ]
+    },
+    {
+      "name": "USER",
+      "item": [
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{BASE_URL}}/api/users/profile",
+            "description": "Fetch the logged-in user profile."
+          }
+        }
+      ]
+    },
+    {
+      "name": "NOTIFICATIONS (NOTICE BOARD)",
+      "item": [
+        {
+          "name": "Get Notifications (Public/Protected)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{BASE_URL}}/api/notifications",
+            "description": "Fetches all active notices that have not yet expired."
+          }
+        },
+        {
+          "name": "Increment Notice View",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{BASE_URL}}/api/notifications/:id/view",
+            "description": "Increment the view count of a specific notice."
+          }
+        },
+        {
+          "name": "Create Notification with Image (Admin) - v4 NEW",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "Exam Schedule Update", "type": "text" },
+                { "key": "content", "value": "Please find attached the latest schedule.", "type": "text" },
+                { "key": "category", "value": "notice", "type": "text" },
+                { "key": "targetBranch", "value": "CSE", "type": "text" },
+                { "key": "targetYear", "value": "3", "type": "text" },
+                { "key": "expiresAt", "value": "2024-12-01T00:00:00Z", "type": "text" },
+                { "key": "image", "type": "file", "src": "" }
+              ]
+            },
+            "url": "{{BASE_URL}}/api/admin/notifications",
+            "description": "Post a notice. Supports multipart/form-data for image uploads."
+          }
+        },
+        {
+          "name": "Vote to Delete Notification (Auth)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{BASE_URL}}/api/admin/notifications/:id/vote-delete",
+            "description": "Vote to remove a notice. Requires 2 votes to automatically deactivate."
+          }
+        },
+        {
+          "name": "Force Delete Notification (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{BASE_URL}}/api/admin/notifications/:id",
+            "description": "Instantly hard deletes a notification. Admin explicitly."
+          }
+        }
+      ]
+    },
+    {
+      "name": "RESOURCES",
+      "item": [
+        {
+          "name": "Get Public Resources",
+          "request": {
+            "method": "GET",
+            "url": "{{BASE_URL}}/api/resources",
+            "description": "Fetch all approved resources."
+          }
+        },
+        {
+          "name": "Upload Resource",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "DS Notes", "type": "text" },
+                { "key": "type", "value": "notes", "type": "text" },
+                { "key": "branch", "value": "CSE", "type": "text" },
+                { "key": "semester", "value": "3", "type": "text" },
+                { "key": "file", "type": "file", "src": "" }
+              ]
+            },
+            "url": "{{BASE_URL}}/api/resources/upload",
+            "description": "Upload a new document to the resources platform."
+          }
+        },
+        {
+          "name": "Report Resource",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Inappropriate content\"\n}"
+            },
+            "url": "{{BASE_URL}}/api/resources/:id/report",
+            "description": "Report a public resource."
+          }
+        }
+      ]
+    },
+    {
+      "name": "ADMIN DASHBOARD & MODERATION",
+      "item": [
+        {
+          "name": "Get Admin Stats",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{BASE_URL}}/api/admin/stats"
+          }
+        },
+         {
+          "name": "Get Admin Analytics",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{BASE_URL}}/api/admin/analytics"
+          }
+        },
+        {
+          "name": "Get Pending Resources",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{BASE_URL}}/api/admin/resources/pending"
+          }
+        },
+        {
+          "name": "Approve Resource",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{BASE_URL}}/api/admin/resources/:id/approve"
+          }
+        },
+        {
+          "name": "Reject Resource",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{BASE_URL}}/api/admin/resources/:id/reject"
+          }
+        },
+        {
+          "name": "Get Reports",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{BASE_URL}}/api/admin/reports"
+          }
+        },
+        {
+           "name": "Resolve Report",
+           "request": {
+             "method": "PATCH",
+             "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+             "url": "{{BASE_URL}}/api/admin/reports/:id/resolve"
+           }
+         }
+      ]
+    },
+    {
+      "name": "METADATA",
+      "item": [
+        {
+          "name": "Get All Metadata (Public)",
+          "request": {
+            "method": "GET",
+            "url": "{{BASE_URL}}/api/metadata",
+            "description": "Fetches all active metadata grouped by type."
+          }
+        },
+        {
+          "name": "Create Metadata (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"branch\",\n  \"value\": \"Computer Science\",\n  \"priority\": 10\n}"
+            },
+            "url": "{{BASE_URL}}/api/admin/metadata"
+          }
+        }
+      ]
+    }
+  ]
+}
