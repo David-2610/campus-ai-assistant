@@ -12,7 +12,7 @@ const Home = () => {
 
   const fetchNotices = async () => {
     try {
-      const { data } = await api.get('/api/notifications');
+      const { data } = await api.get('/notifications');
       setNotices(data);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch notices');

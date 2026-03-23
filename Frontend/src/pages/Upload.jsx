@@ -37,7 +37,7 @@ const Upload = () => {
 
   const fetchMetadata = async () => {
     try {
-      const { data } = await api.get('/api/metadata');
+      const { data } = await api.get('/metadata');
       // data should be { branch: [...], subject: [...], type: [...], examType: [...] }
       setMetadata({
         branch: data.branch || [],
@@ -105,7 +105,7 @@ const Upload = () => {
       formData.append('examType', form.examType);
       formData.append('file', form.file);
 
-      await api.post('/api/resources/upload', formData, {
+      await api.post('/resources/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 

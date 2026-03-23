@@ -1,0 +1,18 @@
+--- STARTING API TESTS ---
+1. Logging in as david@test.com...
+Login successful! Token acquired.
+
+2. Testing Metadata APIs...
+Creating simple metadata entry...
+Created Metadata ID: undefined
+Fetching all metadata...
+Fetch successful! Created branch found: true
+Deactivating Metadata...
+
+!!! TEST FAILED !!!
+Status: 500
+Data: {
+  message: 'Server Error',
+  error: 'Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "Metadata"'
+}
+Route: PATCH http://localhost:5000/api/admin/metadata/undefined

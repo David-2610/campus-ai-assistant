@@ -21,7 +21,7 @@ const ManageMetadata = () => {
   const fetchMetadata = async () => {
     try {
       setLoading(true);
-      const { data } = await api.get('/api/metadata');
+      const { data } = await api.get('/metadata');
       setMetadata({
         branch: data.branch || [],
         subject: data.subject || [],
@@ -53,7 +53,7 @@ const ManageMetadata = () => {
         value: form.value.trim(),
         priority: parseInt(form.priority, 10) || 0
       };
-      await api.post('/api/admin/metadata', payload);
+      await api.post('/admin/metadata', payload);
       setForm(prev => ({ ...prev, value: '', priority: 0 }));
       fetchMetadata(); // Refresh lists
     } catch (err) {
@@ -66,7 +66,7 @@ const ManageMetadata = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this specific metadata?')) return;
     try {
-      await api.delete(`/api/admin/metadata/${id}`);
+      await api.delete(`/admin/metadata/${id}`);
       fetchMetadata();
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete metadata');
@@ -75,7 +75,7 @@ const ManageMetadata = () => {
 
   const handleToggleActive = async (item) => {
     try {
-      await api.patch(`/api/admin/metadata/${item._id}`, { isActive: !item.isActive });
+      await api.patch(`/admin/metadata/${item._id}`, { isActive: !item.isActive });
       fetchMetadata();
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to update metadata');

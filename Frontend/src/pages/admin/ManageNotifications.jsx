@@ -28,7 +28,7 @@ const ManageNotifications = () => {
 
   const fetchNotices = async () => {
     try {
-      const { data } = await api.get('/api/notifications');
+      const { data } = await api.get('/notifications');
       setNotices(data);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch notices');
@@ -56,7 +56,7 @@ const ManageNotifications = () => {
       if (!payload.targetYear) delete payload.targetYear;
       if (!payload.expiresAt) delete payload.expiresAt;
 
-      await api.post('/api/admin/notifications', payload);
+      await api.post('/admin/notifications', payload);
       setSuccess('Notice created successfully!');
       
       // Reset form
@@ -80,7 +80,7 @@ const ManageNotifications = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this notice permanently?')) return;
     try {
-      await api.delete(`/api/admin/notifications/${id}`);
+      await api.delete(`/admin/notifications/${id}`);
       fetchNotices();
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete notice');
