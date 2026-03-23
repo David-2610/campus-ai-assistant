@@ -30,6 +30,15 @@ const userSchema = new mongoose.Schema(
 
     semester: {
       type: Number
+    },
+
+    graduationYear: {
+      type: Number
+    },
+
+    isActive: {
+      type: Boolean,
+      default: true
     }
   },
   { timestamps: true }

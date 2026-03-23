@@ -1,3 +1,5 @@
+import api from '../../api/api';
+
 const ResourceCard = ({ resource }) => {
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -5,6 +7,18 @@ const ResourceCard = ({ resource }) => {
       month: 'short',
       day: 'numeric'
     });
+  };
+
+  const handleReport = async () => {
+    const reason = window.prompt("Why are you reporting this resource? (Provide a reason)");
+    if (!reason) return;
+    
+    try {
+      await api.post(`/resources/${resource._id}/report`, { reason });
+      alert("Report submitted successfully. Admins will review it soon.");
+    } catch (err) {
+      alert(err.response?.data?.message || "Failed to submit report. You may have already reported it.");
+    }
   };
 
   return (
@@ -44,14 +58,25 @@ const ResourceCard = ({ resource }) => {
           <span>{formatDate(resource.createdAt)}</span>
         </div>
         
-        <a
-          href={resource.fileUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-full text-center bg-brand-orange text-white font-bold py-2.5 rounded-lg shadow-sm hover:bg-brand-maroon transition-colors duration-200"
-        >
-          Download
-        </a>
+        <div className="flex gap-2 mb-4">
+          <a
+            href={resource.fileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 text-center bg-brand-orange text-white font-bold py-2.5 rounded-lg shadow-sm hover:bg-brand-maroon transition-colors duration-200"
+          >
+            Download
+          </a>
+          <button
+            onClick={handleReport}
+            title="Report this resource"
+            className="px-3 bg-red-50 text-red-500 rounded-lg hover:bg-red-100 transition-colors border border-red-100"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clipRule="evenodd" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

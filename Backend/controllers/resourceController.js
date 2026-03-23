@@ -1,6 +1,7 @@
 const Resource = require("../models/Resource");
 const Metadata = require("../models/Metadata");
 const uploadToR2 = require("../services/r2UploadService");
+const { logAdminAction } = require("./auditLogController");
 
 // Upload Resource
 exports.uploadResource = async (req, res) => {
@@ -114,6 +115,14 @@ exports.approveResource = async (req, res) => {
         resource.status = "approved";
         await resource.save();
 
+        await logAdminAction({
+            action: "APPROVE_RESOURCE",
+            description: `Approved resource "${resource.title}"`,
+            adminId: req.user.id,
+            targetId: resource._id,
+            targetModel: "Resource"
+        });
+
         res.json({
             message: "Resource approved",
             resource
@@ -132,6 +141,14 @@ exports.rejectResource = async (req, res) => {
             { status: "rejected" },
             { new: true }
         );
+
+        await logAdminAction({
+            action: "REJECT_RESOURCE",
+            description: `Rejected resource "${resource ? resource.title : req.params.id}"`,
+            adminId: req.user.id,
+            targetId: resource ? resource._id : null,
+            targetModel: "Resource"
+        });
 
         res.json({
             message: "Resource rejected",
@@ -184,6 +201,14 @@ exports.deleteResource = async (req, res) => {
         if (!resource) {
             return res.status(404).json({ message: "Resource not found" });
         }
+
+        await logAdminAction({
+            action: "DELETE_RESOURCE",
+            description: `Deleted resource "${resource.title}"`,
+            adminId: req.user.id,
+            targetId: resource._id,
+            targetModel: "Resource"
+        });
 
         res.json({
             message: "Resource deleted successfully"

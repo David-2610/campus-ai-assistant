@@ -21,6 +21,23 @@ const Home = () => {
     }
   };
 
+  const handleTrackView = async (id) => {
+    try {
+      // Keep track of viewed notices in session storage to not spam backends
+      const viewed = JSON.parse(sessionStorage.getItem('viewedNotices') || '[]');
+      if (!viewed.includes(id)) {
+        await api.patch(`/notifications/${id}/view`);
+        viewed.push(id);
+        sessionStorage.setItem('viewedNotices', JSON.stringify(viewed));
+        
+        // Optimistically update UI count if we are going to show it here
+        setNotices(prev => prev.map(n => n._id === id ? { ...n, views: (n.views || 0) + 1 } : n));
+      }
+    } catch (err) {
+      console.log('Failed to track view');
+    }
+  };
+
   const getCategoryColor = (category) => {
     switch (category) {
       case 'event': return 'bg-brand-orange text-white';
@@ -60,7 +77,11 @@ const Home = () => {
       ) : (
         <div className="space-y-6">
           {notices.map((notice) => (
-            <div key={notice._id} className="bg-white rounded-xl shadow-sm border border-brand-peach/30 overflow-hidden hover:shadow-md transition-shadow">
+            <div 
+              key={notice._id} 
+              onMouseEnter={() => handleTrackView(notice._id)}
+              className="bg-white rounded-xl shadow-sm border border-brand-peach/30 overflow-hidden hover:shadow-md transition-shadow cursor-default"
+            >
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <h2 className="text-xl font-bold text-brand-dark leading-tight">{notice.title}</h2>

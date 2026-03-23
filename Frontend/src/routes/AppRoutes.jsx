@@ -17,6 +17,8 @@ import Dashboard from '@/pages/admin/Dashboard';
 import ManageResources from '@/pages/admin/ManageResources';
 import ManageMetadata from '@/pages/admin/ManageMetadata';
 import ManageNotifications from '@/pages/admin/ManageNotifications';
+import ManageUsers from '@/pages/admin/ManageUsers';
+import ManageReports from '@/pages/admin/ManageReports';
 
 const AppRoutes = () => {
   return (
@@ -40,6 +42,8 @@ const AppRoutes = () => {
             <Route path="/admin/resources" element={<ManageResources />} />
             <Route path="/admin/metadata" element={<ManageMetadata />} />
             <Route path="/admin/notifications" element={<ManageNotifications />} />
+            <Route path="/admin/users" element={<ManageUsers />} />
+            <Route path="/admin/reports" element={<ManageReports />} />
           </Route>
         </Route>
       </Routes>

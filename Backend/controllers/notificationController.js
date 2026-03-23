@@ -134,3 +134,22 @@ exports.voteDeleteNotification = async (req, res) => {
         res.status(500).json({ message: "Server Error", error: error.message });
     }
 };
+
+// @desc    Increment notice views by 1
+// @route   PATCH /api/notifications/:id/view
+// @access  Public / Authenticated Student
+exports.incrementView = async (req, res) => {
+    try {
+        const notification = await Notification.findByIdAndUpdate(
+            req.params.id,
+            { $inc: { views: 1 } },
+            { new: true }
+        );
+        if (!notification) return res.status(404).json({ message: 'Notice not found' });
+        
+        res.status(200).json({ views: notification.views });
+    } catch (error) {
+        console.error("Error incrementing views:", error.message);
+        res.status(500).json({ message: "Server Error", error: error.message });
+    }
+};

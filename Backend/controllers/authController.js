@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 // REGISTER USER
 exports.registerUser = async (req, res) => {
   try {
-    const { name, email, password, branch, semester } = req.body;
+    const { name, email, password, branch, semester, graduationYear } = req.body;
 
     const existingUser = await User.findOne({ email });
 
@@ -20,7 +20,8 @@ exports.registerUser = async (req, res) => {
       email,
       password: hashedPassword,
       branch,
-      semester
+      semester,
+      graduationYear
     });
 
     res.status(201).json({
@@ -41,6 +42,10 @@ exports.loginUser = async (req, res) => {
 
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    if (!user.isActive) {
+      return res.status(403).json({ message: "Your account has been suspended by an administrator." });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);

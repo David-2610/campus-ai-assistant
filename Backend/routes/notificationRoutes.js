@@ -7,12 +7,14 @@ const {
     createNotification,
     getNotifications,
     deleteNotification,
-    voteDeleteNotification
+    voteDeleteNotification,
+    incrementView
 } = require("../controllers/notificationController");
 
 // Public (Or basic student access - protect middleware can be applied if needed based on base app logic, we will assume public/protected is handled appropriately)
 // Let's add protect so that "students have read-only access"
 router.get("/notifications", protect, getNotifications);
+router.patch("/notifications/:id/view", protect, incrementView);
 
 // Admin / Owner
 router.post("/admin/notifications", protect, adminOnly, createNotification);

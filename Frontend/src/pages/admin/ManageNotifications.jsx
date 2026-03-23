@@ -228,14 +228,27 @@ const ManageNotifications = () => {
                 
                 <p className="text-sm text-brand-dark/70 mb-4 line-clamp-3">{notice.content}</p>
                 
-                <div className="flex flex-wrap gap-2 text-xs font-medium text-brand-maroon/60">
+                <div className="flex flex-wrap gap-2 text-xs font-medium text-brand-maroon/60 mb-4">
                   {notice.targetBranch && <span className="bg-brand-light px-2 py-1 rounded border border-brand-peach/20">Branch: {notice.targetBranch}</span>}
                   {notice.targetYear && <span className="bg-brand-light px-2 py-1 rounded border border-brand-peach/20">Year: {notice.targetYear}</span>}
-                  {notice.expiresAt && <span className="bg-brand-orange/10 text-brand-orange px-2 py-1 rounded border border-brand-orange/20">Expires: {new Date(notice.expiresAt).toLocaleDateString()}</span>}
+                  {notice.expiresAt && (
+                    <div className="bg-brand-orange/10 text-brand-orange px-2 py-1 rounded border border-brand-orange/20">
+                      <span className="font-semibold mr-1">Exp:</span> 
+                      {new Date(notice.expiresAt).toLocaleDateString()}
+                    </div>
+                  )}
                 </div>
-                <div className="mt-3 pt-3 border-t border-brand-peach/20 text-xs text-brand-dark/40 flex justify-between">
-                  <span>Author: {notice.createdBy?.name || 'Admin'}</span>
-                  <span>Posted: {new Date(notice.createdAt).toLocaleDateString()}</span>
+                
+                <div className="bg-brand-light/50 px-6 py-3 -mx-5 -mb-5 mt-auto border-t border-brand-peach/20 text-xs text-brand-maroon/50 flex justify-between items-center rounded-b-xl">
+                  <span>Posted {new Date(notice.createdAt).toLocaleString()}</span>
+                  <div className="flex gap-4">
+                    <span className="font-bold bg-brand-peach/20 px-2 py-1 rounded text-brand-maroon">
+                      {notice.views || 0} Views
+                    </span>
+                    {notice.votesToDelete && notice.votesToDelete.length > 0 && (
+                      <span className="text-red-500 font-bold">{notice.votesToDelete.length} Delete Votes</span>
+                    )}
+                  </div>
                 </div>
               </div>
             ))

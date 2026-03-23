@@ -16,7 +16,10 @@ const {
   deleteResource
 } = require("../controllers/resourceController");
 
-const { getAdminStats } = require("../controllers/adminController");
+const { getAdminStats, getAdminAnalytics } = require("../controllers/adminController");
+const { getUsers, updateUserRole, toggleUserStatus } = require("../controllers/userManagementController");
+const { getReports, updateReportStatus } = require("../controllers/reportController");
+const { getAuditLogs } = require("../controllers/auditLogController");
 
 
 // =====================================================
@@ -35,6 +38,38 @@ router.get("/dashboard", protect, adminOnly, (req, res) => {
 // GET /api/admin/stats
 // Access: Admin only
 router.get("/stats", protect, adminOnly, getAdminStats);
+
+// GET /api/admin/analytics
+// Access: Admin only
+router.get("/analytics", protect, adminOnly, getAdminAnalytics);
+
+// GET /api/admin/audit-logs
+// Access: Admin only
+router.get("/audit-logs", protect, adminOnly, getAuditLogs);
+
+// =====================================================
+// 👥 USER MANAGEMENT
+// =====================================================
+
+// GET matching users
+router.get("/users", protect, adminOnly, getUsers);
+
+// PATCH update user role
+router.patch("/users/:id/role", protect, adminOnly, updateUserRole);
+
+// PATCH toggle user status (ban/unban)
+router.patch("/users/:id/status", protect, adminOnly, toggleUserStatus);
+
+// =====================================================
+// 🚨 RESOURCE REPORTS
+// =====================================================
+
+// GET all reports
+router.get("/reports", protect, adminOnly, getReports);
+
+// PATCH resolve/dismiss report
+router.patch("/reports/:id/resolve", protect, adminOnly, updateReportStatus);
+
 
 
 // =====================================================

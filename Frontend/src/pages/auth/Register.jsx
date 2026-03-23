@@ -13,7 +13,8 @@ const Register = () => {
     email: "",
     password: "",
     branch: "",
-    semester: ""
+    semester: "",
+    graduationYear: ""
   });
 
   const [errors, setErrors] = useState({});
@@ -57,6 +58,10 @@ const Register = () => {
       newErrors.semester = "Semester is required";
     }
 
+    if (!form.graduationYear) {
+      newErrors.graduationYear = "Batch (Graduation Year) is required";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -75,7 +80,8 @@ const Register = () => {
     try {
       await api.post("/auth/register", {
         ...form,
-        semester: parseInt(form.semester, 10)
+        semester: parseInt(form.semester, 10),
+        graduationYear: parseInt(form.graduationYear, 10)
       });
 
       // Redirect to login with success message
@@ -187,6 +193,32 @@ const Register = () => {
               </select>
               {errors.semester && (
                 <p className="mt-1 text-sm text-red-600">{errors.semester}</p>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="graduationYear" className="block text-sm font-medium text-brand-dark mb-1">
+                Batch (Graduation Year) <span className="text-brand-orange ml-1">*</span>
+              </label>
+              <select
+                id="graduationYear"
+                name="graduationYear"
+                value={form.graduationYear}
+                onChange={handleChange}
+                required
+                className={`w-full px-4 py-2 bg-brand-light/30 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all ${
+                  errors.graduationYear ? 'border-red-500' : 'border-brand-peach/40'
+                }`}
+              >
+                <option value="">Select your target graduation year</option>
+                {[2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032].map((year) => (
+                  <option key={year} value={year}>
+                    Class of {year} (Batch {year})
+                  </option>
+                ))}
+              </select>
+              {errors.graduationYear && (
+                <p className="mt-1 text-sm text-red-600">{errors.graduationYear}</p>
               )}
             </div>
 
