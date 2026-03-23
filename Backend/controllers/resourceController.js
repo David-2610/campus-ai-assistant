@@ -1,4 +1,5 @@
 const Resource = require("../models/Resource");
+const Metadata = require("../models/Metadata");
 const uploadToR2 = require("../services/r2UploadService");
 
 // Upload Resource
@@ -16,6 +17,22 @@ exports.uploadResource = async (req, res) => {
             year,
             examType
         } = req.body;
+
+        // --- Metadata Validation ---
+        if (branch) {
+            const branchValid = await Metadata.findOne({ type: "branch", value: branch, isActive: true });
+            if (!branchValid) {
+                return res.status(400).json({ message: "Invalid or inactive branch" });
+            }
+        }
+        
+        if (subject) {
+            const subjectValid = await Metadata.findOne({ type: "subject", value: subject, isActive: true });
+            if (!subjectValid) {
+                return res.status(400).json({ message: "Invalid or inactive subject" });
+            }
+        }
+        // ---------------------------
 
         const file = req.file;
 

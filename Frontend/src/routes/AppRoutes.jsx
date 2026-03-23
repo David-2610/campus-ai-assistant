@@ -15,6 +15,8 @@ import Upload from '@/pages/Upload';
 // Admin pages
 import Dashboard from '@/pages/admin/Dashboard';
 import ManageResources from '@/pages/admin/ManageResources';
+import ManageMetadata from '@/pages/admin/ManageMetadata';
+import ManageNotifications from '@/pages/admin/ManageNotifications';
 
 const AppRoutes = () => {
   return (
@@ -36,6 +38,8 @@ const AppRoutes = () => {
           <Route element={<AdminRoute />}>
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/resources" element={<ManageResources />} />
+            <Route path="/admin/metadata" element={<ManageMetadata />} />
+            <Route path="/admin/notifications" element={<ManageNotifications />} />
           </Route>
         </Route>
       </Routes>

@@ -143,7 +143,7 @@ const Resources = () => {
             id="sort"
             value={sort}
             onChange={handleSortChange}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-brand-peach/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all bg-brand-light/30"
           >
             <option value="latest">Latest</option>
             <option value="oldest">Oldest</option>

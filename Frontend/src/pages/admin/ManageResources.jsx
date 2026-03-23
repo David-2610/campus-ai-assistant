@@ -88,38 +88,38 @@ const ManageResources = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Manage Resources</h1>
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-brand-dark mb-8 border-b border-brand-peach/30 pb-4">Manage Uploaded Resources</h1>
 
       {/* Tab Navigation */}
-      <div className="mb-6 border-b border-gray-200">
+      <div className="mb-6 border-b border-brand-peach/30">
         <nav className="flex space-x-8">
           <button
             onClick={() => setActiveTab('pending')}
-            className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+            className={`py-4 px-1 border-b-4 font-bold text-sm transition-colors ${
               activeTab === 'pending'
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                ? 'border-brand-orange text-brand-orange'
+                : 'border-transparent text-gray-500 hover:text-brand-dark hover:border-brand-peach'
             }`}
           >
             Pending
           </button>
           <button
             onClick={() => setActiveTab('approved')}
-            className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+            className={`py-4 px-1 border-b-4 font-bold text-sm transition-colors ${
               activeTab === 'approved'
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                ? 'border-brand-orange text-brand-orange'
+                : 'border-transparent text-gray-500 hover:text-brand-dark hover:border-brand-peach'
             }`}
           >
             Approved
           </button>
           <button
             onClick={() => setActiveTab('rejected')}
-            className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+            className={`py-4 px-1 border-b-4 font-bold text-sm transition-colors ${
               activeTab === 'rejected'
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                ? 'border-brand-orange text-brand-orange'
+                : 'border-transparent text-gray-500 hover:text-brand-dark hover:border-brand-peach'
             }`}
           >
             Rejected
@@ -145,48 +145,48 @@ const ManageResources = () => {
       {!loading && !error && (
         <>
           {resources.length === 0 ? (
-            <div className="text-center py-12 bg-gray-50 rounded-lg">
-              <p className="text-gray-500 text-lg">No {activeTab} resources found</p>
+            <div className="text-center py-12 bg-brand-light/20 rounded-xl border border-brand-peach/30 shadow-sm">
+              <p className="text-brand-maroon/60 font-medium text-lg">No {activeTab} resources found</p>
             </div>
           ) : (
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-brand-peach/30">
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-brand-peach/20">
+                  <thead className="bg-brand-light/30">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-brand-dark uppercase tracking-wider">
                         Title
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-brand-dark uppercase tracking-wider">
                         Type
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-brand-dark uppercase tracking-wider">
                         Subject
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-brand-dark uppercase tracking-wider">
                         Branch
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-brand-dark uppercase tracking-wider">
                         Semester
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-brand-dark uppercase tracking-wider">
                         Year
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-brand-dark uppercase tracking-wider">
                         Exam Type
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-brand-dark uppercase tracking-wider">
                         Uploaded By
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-brand-dark uppercase tracking-wider">
                         Date
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-brand-dark uppercase tracking-wider">
                         Actions
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-white divide-y divide-brand-peach/20">
                     {resources.map((resource) => (
                       <tr key={resource._id} className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap">

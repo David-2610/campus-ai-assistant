@@ -91,20 +91,20 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-brand-light px-4 py-12">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+        <div className="bg-white rounded-xl border border-brand-peach/30 shadow-md p-8">
+          <h2 className="text-3xl font-bold text-brand-dark mb-6 text-center">
             Create Account
           </h2>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-sm text-red-600">{error}</p>
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-sm text-red-700 font-medium">{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <Input
               type="text"
               name="name"
@@ -139,8 +139,8 @@ const Register = () => {
             />
 
             <div>
-              <label htmlFor="branch" className="block text-sm font-medium text-gray-700 mb-1">
-                Branch <span className="text-red-500 ml-1">*</span>
+              <label htmlFor="branch" className="block text-sm font-medium text-brand-dark mb-1">
+                Branch <span className="text-brand-orange ml-1">*</span>
               </label>
               <select
                 id="branch"
@@ -148,8 +148,8 @@ const Register = () => {
                 value={form.branch}
                 onChange={handleChange}
                 required
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.branch ? 'border-red-500' : 'border-gray-300'
+                className={`w-full px-4 py-2 bg-brand-light/30 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all ${
+                  errors.branch ? 'border-red-500' : 'border-brand-peach/40'
                 }`}
               >
                 <option value="">Select your branch</option>
@@ -165,8 +165,8 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="semester" className="block text-sm font-medium text-gray-700 mb-1">
-                Semester <span className="text-red-500 ml-1">*</span>
+              <label htmlFor="semester" className="block text-sm font-medium text-brand-dark mb-1">
+                Semester <span className="text-brand-orange ml-1">*</span>
               </label>
               <select
                 id="semester"
@@ -174,8 +174,8 @@ const Register = () => {
                 value={form.semester}
                 onChange={handleChange}
                 required
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.semester ? 'border-red-500' : 'border-gray-300'
+                className={`w-full px-4 py-2 bg-brand-light/30 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all ${
+                  errors.semester ? 'border-red-500' : 'border-brand-peach/40'
                 }`}
               >
                 <option value="">Select your semester</option>
@@ -193,7 +193,7 @@ const Register = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-brand-maroon text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-dark shadow-sm focus:outline-none focus:ring-4 focus:ring-brand-maroon/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {loading ? (
                 <div className="flex items-center justify-center">
@@ -206,12 +206,12 @@ const Register = () => {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-gray-600">
+          <p className="mt-8 text-center text-sm text-brand-dark/70">
             Already have an account?{" "}
             <button
               type="button"
               onClick={() => navigate("/login")}
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-brand-orange hover:text-brand-maroon font-bold transition-colors"
             >
               Login here
             </button>

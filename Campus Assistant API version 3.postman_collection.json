@@ -1,0 +1,137 @@
+{
+  "info": {
+    "name": "Campus Assistant API version 3",
+    "_postman_id": "version-3-collection",
+    "description": "API collection for Metadata Dropdowns and Notice Board Notifications",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "BASE_URL", "value": "http://localhost:5000" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "METADATA",
+      "item": [
+        {
+          "name": "Get All Metadata (Public)",
+          "request": {
+            "method": "GET",
+            "url": "{{BASE_URL}}/api/metadata",
+            "description": "Fetches all active metadata grouped by type and sorted by priority."
+          }
+        },
+        {
+          "name": "Create Metadata (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"branch\",\n  \"value\": \"Computer Science\",\n  \"priority\": 10\n}"
+            },
+            "url": "{{BASE_URL}}/api/admin/metadata",
+            "description": "Creates a single metadata entry. Types can be branch, subject, type, examType."
+          }
+        },
+        {
+          "name": "Create Bulk Metadata (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  { \"type\": \"branch\", \"value\": \"Information Technology\", \"priority\": 5 },\n  { \"type\": \"subject\", \"value\": \"Data Structures\", \"priority\": 8 }\n]"
+            },
+            "url": "{{BASE_URL}}/api/admin/metadata/bulk",
+            "description": "Allows sending an array of metadata entries to insert sequentially."
+          }
+        },
+        {
+          "name": "Update Metadata Status (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": false\n}"
+            },
+            "url": "{{BASE_URL}}/api/admin/metadata/:id",
+            "description": "Toggle isActive or update fields for a specific metadata entry."
+          }
+        },
+        {
+          "name": "Delete Metadata (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{BASE_URL}}/api/admin/metadata/:id",
+            "description": "Hard delete a metadata entry."
+          }
+        }
+      ]
+    },
+    {
+      "name": "NOTIFICATIONS (NOTICE BOARD)",
+      "item": [
+        {
+          "name": "Get Notifications (Public)",
+          "request": {
+            "method": "GET",
+            "url": "{{BASE_URL}}/api/notifications",
+            "description": "Fetches all active notices that have not yet expired."
+          }
+        },
+        {
+          "name": "Create Notification (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Exam Schedule Mids\",\n  \"content\": \"The mid semester exams start on 20th October.\",\n  \"category\": \"event\",\n  \"targetBranch\": \"CSE\",\n  \"targetYear\": 3,\n  \"expiresAt\": \"2023-11-01T00:00:00Z\"\n}"
+            },
+            "url": "{{BASE_URL}}/api/admin/notifications",
+            "description": "Post a notice. category can be notice, event, deadline. targetBranch and targetYear are optional."
+          }
+        },
+        {
+          "name": "Vote to Delete Notification (Auth)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{BASE_URL}}/api/admin/notifications/:id/vote-delete",
+            "description": "Vote to remove a notice. Requires 2 votes to automatically deactivate."
+          }
+        },
+        {
+          "name": "Force Delete Notification (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{BASE_URL}}/api/admin/notifications/:id",
+            "description": "Instantly hard deletes a notification. Admin explicitly."
+          }
+        }
+      ]
+    }
+  ]
+}

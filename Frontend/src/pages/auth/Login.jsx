@@ -75,26 +75,26 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-brand-light px-4 py-12">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+        <div className="bg-white rounded-xl border border-brand-peach/30 shadow-md p-8">
+          <h2 className="text-3xl font-bold text-brand-dark mb-6 text-center">
             Login
           </h2>
 
           {successMessage && (
-            <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-sm text-green-600">{successMessage}</p>
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-sm text-green-700 font-medium">{successMessage}</p>
             </div>
           )}
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-sm text-red-600">{error}</p>
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-sm text-red-700 font-medium">{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <Input
               type="email"
               name="email"
@@ -120,7 +120,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-brand-maroon text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-dark shadow-sm focus:outline-none focus:ring-4 focus:ring-brand-maroon/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {loading ? (
                 <div className="flex items-center justify-center">
@@ -133,12 +133,12 @@ const Login = () => {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-gray-600">
+          <p className="mt-8 text-center text-sm text-brand-dark/70">
             Don't have an account?{" "}
             <button
               type="button"
               onClick={() => navigate("/register")}
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-brand-orange hover:text-brand-maroon font-bold transition-colors"
             >
               Register here
             </button>

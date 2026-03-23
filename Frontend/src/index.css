@@ -1,4 +1,16 @@
 @import "tailwindcss";
+
+@theme {
+  --color-brand-light: #FFF9F5;
+  --color-brand-peach: #FCD3AA;
+  --color-brand-orange: #E85D04;
+  --color-brand-maroon: #6A040F;
+  --color-brand-dark: #370617;
+}
+
+body {
+  @apply bg-brand-light text-brand-dark;
+}
 .input {
-    @apply w-full mb-3 p-2 border rounded;
-  }
+  @apply w-full mb-3 p-3 border-2 border-brand-peach/40 rounded-lg focus:border-brand-orange focus:ring-4 focus:ring-brand-orange/20 outline-none transition-all;
+}

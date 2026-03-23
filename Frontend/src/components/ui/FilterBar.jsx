@@ -19,7 +19,7 @@ const FilterBar = ({ filters, onFilterChange, onReset }) => {
             placeholder="Search by title or subject..."
             value={filters.search || ''}
             onChange={handleSearchChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 bg-brand-light/30 border border-brand-peach/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all"
           />
         </div>
 
@@ -29,7 +29,7 @@ const FilterBar = ({ filters, onFilterChange, onReset }) => {
           <select
             value={filters.type || ''}
             onChange={(e) => handleSelectChange('type', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 bg-brand-light/30 border border-brand-peach/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all"
           >
             <option value="">All Types</option>
             {RESOURCE_TYPES.map((type) => (
@@ -48,7 +48,7 @@ const FilterBar = ({ filters, onFilterChange, onReset }) => {
             placeholder="Enter subject"
             value={filters.subject || ''}
             onChange={(e) => handleSelectChange('subject', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 bg-brand-light/30 border border-brand-peach/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all"
           />
         </div>
 
@@ -58,7 +58,7 @@ const FilterBar = ({ filters, onFilterChange, onReset }) => {
           <select
             value={filters.branch || ''}
             onChange={(e) => handleSelectChange('branch', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 bg-brand-light/30 border border-brand-peach/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all"
           >
             <option value="">All Branches</option>
             {BRANCHES.map((branch) => (
@@ -75,7 +75,7 @@ const FilterBar = ({ filters, onFilterChange, onReset }) => {
           <select
             value={filters.semester || ''}
             onChange={(e) => handleSelectChange('semester', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 bg-brand-light/30 border border-brand-peach/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all"
           >
             <option value="">All Semesters</option>
             {SEMESTERS.map((sem) => (
@@ -92,7 +92,7 @@ const FilterBar = ({ filters, onFilterChange, onReset }) => {
           <select
             value={filters.year || ''}
             onChange={(e) => handleSelectChange('year', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 bg-brand-light/30 border border-brand-peach/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all"
           >
             <option value="">All Years</option>
             {YEARS.map((year) => (
@@ -109,7 +109,7 @@ const FilterBar = ({ filters, onFilterChange, onReset }) => {
           <select
             value={filters.examType || ''}
             onChange={(e) => handleSelectChange('examType', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 bg-brand-light/30 border border-brand-peach/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange/50 transition-all"
           >
             <option value="">All Exam Types</option>
             {EXAM_TYPES.map((exam) => (
