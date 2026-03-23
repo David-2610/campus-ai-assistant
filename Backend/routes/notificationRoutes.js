@@ -11,13 +11,15 @@ const {
     incrementView
 } = require("../controllers/notificationController");
 
+const upload = require("../middleware/uploadMiddleware");
+
 // Public (Or basic student access - protect middleware can be applied if needed based on base app logic, we will assume public/protected is handled appropriately)
 // Let's add protect so that "students have read-only access"
 router.get("/notifications", protect, getNotifications);
 router.patch("/notifications/:id/view", protect, incrementView);
 
 // Admin / Owner
-router.post("/admin/notifications", protect, adminOnly, createNotification);
+router.post("/admin/notifications", protect, adminOnly, upload.single("image"), createNotification);
 router.delete("/admin/notifications/:id", protect, adminOnly, deleteNotification);
 router.patch("/admin/notifications/:id/vote-delete", protect, adminOnly, voteDeleteNotification);
 

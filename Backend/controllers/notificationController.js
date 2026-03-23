@@ -1,4 +1,5 @@
 const Notification = require("../models/Notification");
+const uploadToR2 = require("../services/r2UploadService");
 const Metadata = require("../models/Metadata");
 
 // @desc    Create notification
@@ -17,6 +18,16 @@ exports.createNotification = async (req, res) => {
             }
         }
 
+        let imageUrl;
+        if (req.file) {
+            try {
+                imageUrl = await uploadToR2(req.file);
+            } catch (err) {
+                console.error("❌ Image Upload failed, stopping process");
+                return res.status(500).json({ message: "Image upload failed", error: err.message });
+            }
+        }
+
         const notification = await Notification.create({
             title,
             content,
@@ -24,6 +35,7 @@ exports.createNotification = async (req, res) => {
             targetBranch: targetBranch || undefined,
             targetYear: targetYear || undefined,
             expiresAt: expiresAt ? new Date(expiresAt) : undefined,
+            imageUrl,
             createdBy: req.user.id
         });
 

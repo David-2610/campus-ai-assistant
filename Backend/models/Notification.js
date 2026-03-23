@@ -45,6 +45,9 @@ const notificationSchema = new mongoose.Schema({
     views: {
         type: Number,
         default: 0
+    },
+    imageUrl: {
+        type: String
     }
 }, { timestamps: true });
 

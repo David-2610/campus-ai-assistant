@@ -17,7 +17,8 @@ const ManageNotifications = () => {
     category: 'notice',
     targetBranch: '',
     targetYear: '',
-    expiresAt: '' // We will let the backend default it if empty, or we can send it
+    expiresAt: '', // We will let the backend default it if empty, or we can send it
+    image: null
   });
 
   const categories = ['notice', 'event', 'deadline'];
@@ -41,6 +42,10 @@ const ManageNotifications = () => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleFileChange = (e) => {
+    setForm(prev => ({ ...prev, image: e.target.files[0] }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.title.trim() || !form.content.trim()) return;
@@ -50,13 +55,18 @@ const ManageNotifications = () => {
     setSuccess('');
 
     try {
-      // clean up empty fields
-      const payload = { ...form };
-      if (!payload.targetBranch) delete payload.targetBranch;
-      if (!payload.targetYear) delete payload.targetYear;
-      if (!payload.expiresAt) delete payload.expiresAt;
+      const formData = new FormData();
+      formData.append('title', form.title);
+      formData.append('content', form.content);
+      formData.append('category', form.category);
+      if (form.targetBranch) formData.append('targetBranch', form.targetBranch);
+      if (form.targetYear) formData.append('targetYear', form.targetYear);
+      if (form.expiresAt) formData.append('expiresAt', form.expiresAt);
+      if (form.image) formData.append('image', form.image);
 
-      await api.post('/admin/notifications', payload);
+      await api.post('/admin/notifications', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
       setSuccess('Notice created successfully!');
       
       // Reset form
@@ -66,8 +76,12 @@ const ManageNotifications = () => {
         category: 'notice',
         targetBranch: '',
         targetYear: '',
-        expiresAt: ''
+        expiresAt: '',
+        image: null
       });
+
+      const fileInput = document.getElementById('image-upload');
+      if (fileInput) fileInput.value = '';
       
       fetchNotices();
     } catch (err) {
@@ -179,6 +193,17 @@ const ManageNotifications = () => {
                 />
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-brand-dark mb-1">Attach Image (Optional)</label>
+                <input
+                  id="image-upload"
+                  type="file"
+                  accept="image/jpeg, image/png, image/webp"
+                  onChange={handleFileChange}
+                  className="w-full text-sm text-brand-dark/70 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-peach/20 file:text-brand-maroon hover:file:bg-brand-peach/40 transition-all cursor-pointer border border-brand-peach/30 rounded-lg p-2 bg-brand-light/20"
+                />
+              </div>
+
               <Button
                 type="submit"
                 disabled={submitting}
@@ -225,6 +250,12 @@ const ManageNotifications = () => {
                     </svg>
                   </button>
                 </div>
+
+                {notice.imageUrl && (
+                  <div className="w-full h-32 mb-4 bg-brand-light/50 rounded-lg overflow-hidden border border-brand-peach/30">
+                    <img src={notice.imageUrl} alt="Notice Attachment" className="w-full h-full object-cover" />
+                  </div>
+                )}
                 
                 <p className="text-sm text-brand-dark/70 mb-4 line-clamp-3">{notice.content}</p>
                 

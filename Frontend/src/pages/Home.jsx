@@ -82,6 +82,11 @@ const Home = () => {
               onMouseEnter={() => handleTrackView(notice._id)}
               className="bg-white rounded-xl shadow-sm border border-brand-peach/30 overflow-hidden hover:shadow-md transition-shadow cursor-default"
             >
+              {notice.imageUrl && (
+                <div className="w-full h-48 sm:h-64 object-cover overflow-hidden bg-brand-light">
+                  <img src={notice.imageUrl} alt={notice.title} className="w-full h-full object-cover" />
+                </div>
+              )}
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <h2 className="text-xl font-bold text-brand-dark leading-tight">{notice.title}</h2>
