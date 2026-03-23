@@ -16,12 +16,14 @@ const {
   deleteResource
 } = require("../controllers/resourceController");
 
+const { getAdminStats } = require("../controllers/adminController");
+
 
 // =====================================================
 // 🧑‍💼 ADMIN DASHBOARD
 // =====================================================
 
-// GET /api/admin/dashboard
+// GET /api/admin/dashboard (Legacy test)
 // Access: Admin only
 router.get("/dashboard", protect, adminOnly, (req, res) => {
   res.json({
@@ -29,6 +31,10 @@ router.get("/dashboard", protect, adminOnly, (req, res) => {
     user: req.user
   });
 });
+
+// GET /api/admin/stats
+// Access: Admin only
+router.get("/stats", protect, adminOnly, getAdminStats);
 
 
 // =====================================================
