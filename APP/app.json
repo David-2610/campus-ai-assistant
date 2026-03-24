@@ -1,13 +1,13 @@
 {
   "expo": {
     "name": "JK Connect",
-    "slug": "jk-connect",
+    "slug": "APP",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,14 +17,12 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "foregroundImage": "./logo.png"
       },
       "package": "com.campusai.APP"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./logo.png"
     },
     "plugins": [
       "expo-secure-store"
