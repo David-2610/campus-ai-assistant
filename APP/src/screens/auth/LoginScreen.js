@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import ScreenWrapper from '../../components/layout/ScreenWrapper';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
@@ -65,8 +65,8 @@ const LoginScreen = ({ navigation, route }) => {
           <View style={styles.card}>
             {/* Logo / Header */}
             <View style={styles.headerSection}>
-              <Text style={styles.logoEmoji}>🎓</Text>
-              <Text style={styles.title}>Campus AI Assistant</Text>
+              <Image source={require('../../../assets/icon.png')} style={styles.logoImage} resizeMode="contain" />
+              <Text style={styles.title}>JK Connect</Text>
               <Text style={styles.subtitle}>Sign in to your account</Text>
             </View>
 
@@ -139,9 +139,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 28,
   },
-  logoEmoji: {
-    fontSize: 48,
-    marginBottom: 12,
+  logoImage: {
+    width: 80,
+    height: 80,
+    marginBottom: 16,
   },
   title: {
     fontSize: SIZES.fontXxl,

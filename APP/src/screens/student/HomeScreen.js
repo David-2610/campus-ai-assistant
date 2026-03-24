@@ -122,7 +122,7 @@ const HomeScreen = () => {
   return (
     <ScreenWrapper scrollable={false} padded={false}>
       <View style={styles.headerContainer}>
-        <Text style={styles.pageTitle}>Campus Notice Board</Text>
+        <Text style={styles.pageTitle}>JK Connect Notice Board</Text>
         <Text style={styles.pageSubtitle}>Stay updated with the latest announcements</Text>
       </View>
 

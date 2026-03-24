@@ -1,4 +1,4 @@
-// Campus AI Assistant — Design System / Theme
+// JK Connect — Design System / Theme
 // Matches the web frontend's brand palette
 
 export const COLORS = {

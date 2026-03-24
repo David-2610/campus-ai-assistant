@@ -32,7 +32,10 @@ const Sidebar = () => {
     <>
       {/* Mobile Toggle Bar */}
       <div className="md:hidden bg-brand-maroon text-brand-light flex items-center justify-between p-4 sticky top-0 z-50 shadow-md">
-        <span className="font-bold text-lg">Campus AI</span>
+        <div className="flex items-center gap-2">
+          <img src="/logo.png" alt="JK Connect Logo" className="w-6 h-6 object-contain" />
+          <span className="font-bold text-lg">JK Connect</span>
+        </div>
         <button onClick={() => setIsMobileOpen(!isMobileOpen)}>
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
@@ -50,9 +53,14 @@ const Sidebar = () => {
         {/* Header / Brand */}
         <div className="flex items-center justify-between p-4 bg-brand-maroon text-brand-light">
           {isExpanded ? (
-            <Link to="/" className="text-xl font-bold truncate">Campus AI</Link>
+            <Link to="/" className="flex items-center gap-2 text-xl font-bold truncate">
+              <img src="/logo.png" alt="JK Connect Logo" className="w-6 h-6 object-contain" />
+              JK Connect
+            </Link>
           ) : (
-            <Link to="/" className="text-xl font-bold mx-auto">CAI</Link>
+            <Link to="/" className="flex justify-center mx-auto">
+              <img src="/logo.png" alt="JKC Logo" className="w-8 h-8 object-contain" />
+            </Link>
           )}
           <button className="hidden md:block text-brand-light hover:text-brand-peach" onClick={() => setIsExpanded(!isExpanded)}>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

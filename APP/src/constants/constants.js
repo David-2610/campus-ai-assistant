@@ -19,5 +19,5 @@ export const NOTICE_CATEGORIES = ['notice', 'event', 'deadline'];
 export const USER_ROLES = ['student', 'admin'];
 
 // Update this to your deployed backend URL
-export const API_BASE_URL = 'http://10.47.183.86:5000/api';
+export const API_BASE_URL = 'https://campus-ai-assistant-two.vercel.app/api';
 

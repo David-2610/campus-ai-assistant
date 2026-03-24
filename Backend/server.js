@@ -31,7 +31,7 @@ app.use("/api", notificationRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
-  res.send("Campus AI Assistant API Running");
+  res.send("JK Connect API Running");
 });
 
 const PORT = process.env.PORT || 5000;

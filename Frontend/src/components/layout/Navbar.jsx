@@ -23,8 +23,9 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           {/* Logo/Brand */}
           <div className="flex items-center">
-            <Link to="/" className="text-xl font-bold text-blue-600 hover:text-blue-700">
-              Campus AI Assistant
+            <Link to="/" className="flex items-center gap-3 text-xl font-bold text-blue-600 hover:text-blue-700">
+              <img src="/logo.png" alt="JK Connect Logo" className="w-8 h-8 object-contain" />
+              JK Connect
             </Link>
           </div>
 

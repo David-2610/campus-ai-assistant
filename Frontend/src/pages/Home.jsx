@@ -57,7 +57,7 @@ const Home = () => {
   return (
     <div className="max-w-4xl mx-auto py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-brand-dark mb-2">Campus Notice Board</h1>
+        <h1 className="text-3xl font-bold text-brand-dark mb-2">JK Connect Notice Board</h1>
         <p className="text-brand-maroon/70">Stay updated with the latest announcements, events, and deadlines.</p>
       </div>
 
