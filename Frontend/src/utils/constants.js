@@ -9,8 +9,8 @@ export const RESOURCE_TYPES = [
 ];
 
 export const BRANCHES = [
-  { value: 'CSE', label: 'Computer Science Engineering' },
-  { value: 'ECE', label: 'Electronics and Communication' }
+  { value: 'CSE', label: 'Computer Science & Engineering (CSE)' },
+  { value: 'ECE', label: 'Electronics & Communication (ECE)' }
 ];
 
 export const SEMESTERS = [1, 2, 3, 4, 5, 6, 7, 8];

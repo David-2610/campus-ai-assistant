@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../../api/api';
 import Button from '../../components/ui/Button';
+import { BRANCHES } from '../../utils/constants';
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -98,11 +99,9 @@ const ManageUsers = () => {
           className="border border-brand-peach/40 rounded-lg px-4 py-2 bg-brand-light/30 focus:outline-none focus:ring-2 focus:ring-brand-orange/50"
         >
           <option value="">All Branches</option>
-          <option value="CSE">CSE</option>
-          <option value="IT">IT</option>
-          <option value="ECE">ECE</option>
-          <option value="MECH">MECH</option>
-          <option value="CIVIL">CIVIL</option>
+          {BRANCHES.map(branch => (
+            <option key={branch.value} value={branch.value}>{branch.label}</option>
+          ))}
         </select>
       </div>
 

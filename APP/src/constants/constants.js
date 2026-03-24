@@ -6,10 +6,7 @@ export const YEARS = [2020, 2021, 2022, 2023, 2024, 2025];
 
 export const BRANCHES = [
   { value: 'CSE', label: 'Computer Science & Engineering (CSE)' },
-  { value: 'IT', label: 'Information Technology (IT)' },
   { value: 'ECE', label: 'Electronics & Communication (ECE)' },
-  { value: 'MECH', label: 'Mechanical Engineering (MECH)' },
-  { value: 'CIVIL', label: 'Civil Engineering (CIVIL)' },
 ];
 
 export const GRADUATION_YEARS = [2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032];
